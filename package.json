@@ -6,6 +6,7 @@
 	"type": "module",
 	"scripts": {
 		"syntax": "cd ./node_modules/@patches/patches.g4 && antlr4 -Dlanguage=JavaScript -o ./../../../syntax patchesLexer.g4 patchesParser.g4",
+		"compile": "npx wat2wasm -vv --enable-threads --debug-names --o=./wasm/patches.wasm ./wasm/patches.wat",
 		"web": "nodemon --env-file-if-exists=.env web.js",
 		"check": "biome check ."
 	},

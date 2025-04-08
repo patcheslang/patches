@@ -131,3 +131,4 @@ dist
 
 # patches 
 syntax/
+wasm/patches.wasm
