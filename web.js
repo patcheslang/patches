@@ -10,8 +10,13 @@ export default class PatchesWeb {
 		app.use("/manifest.json", express.static("media/manifest.json"));
 
 		app.use("/media", express.static("media"));
-		app.use("/scripts", express.static("scripts"));
 		app.use("/styles", express.static("styles"));
+
+		app.use("/scripts", express.static("scripts"));
+
+		app.use("/scripts/antlr4.web.mjs", express.static("node_modules/antlr4/dist/antlr4.web.mjs"));
+
+		app.use("/syntax", express.static("syntax"));
 
 		app.get("/", (req, res) => res.render("index"));
 
