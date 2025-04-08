@@ -1,0 +1,31 @@
+{
+	"name": "patches",
+	"version": "0.1.0",
+	"description": "Patches Programming Language Implementation",
+	"main": "index.js",
+	"type": "module",
+	"scripts": {
+		"syntax": "cd ./node_modules/@patches/patches.g4 && antlr4 -Dlanguage=JavaScript -o ./../../../syntax patchesLexer.g4 patchesParser.g4",
+		"web": "nodemon --env-file-if-exists=.env web.js",
+		"check": "biome check ."
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/patcheslang/patches.git"
+	},
+	"author": "@wikitopian",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/patcheslang/patches/issues"
+	},
+	"homepage": "https://github.com/patcheslang/patches#readme",
+	"dependencies": {
+		"@patches/patches.g4": "github:patcheslang/patches.g4",
+		"ejs": "^3.1.10",
+		"express": "^5.1.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"nodemon": "^3.1.9"
+	}
+}
