@@ -12,7 +12,7 @@ export default class Patches {
 			e.preventDefault();
 
 			const code = document.querySelector("form#patches textarea").value;
-			this.parse(code);
+			const opCodes = this.doParse(code);
 		});
 
 		this.instantiate();
@@ -26,19 +26,21 @@ export default class Patches {
 
 		this.bc = this.obj.instance.exports;
 
-		this.listener = new Listener(this.bc);
+		this.listener = new Listener();
 	}
 
-	parse(code) {
+	doParse(code) {
 		const chars = new antlr4.InputStream(code);
 		const lexer = new Lexer(chars);
 		const tokens = new antlr4.CommonTokenStream(lexer);
 		const parser = new Parser(tokens);
 		const tree = parser.parse();
 
-		console.log(tree); // TODO: DEBUG
+		document.tree = tree; // TODO: DEBUG
 
 		antlr4.tree.ParseTreeWalker.DEFAULT.walk(this.listener, tree);
+
+		return this.listener.getOpcodes();
 	}
 }
 
