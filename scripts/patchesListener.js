@@ -65,7 +65,7 @@ export default class PatchesListener extends PatchesParserListener {
 	}
 
 	doNumber(number) {
-		console.log(number.getText());
+		this.opcodes.push(number.getText());
 	}
 
 	doMessage(message) {

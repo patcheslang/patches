@@ -7,10 +7,3 @@ form#patches > textarea {
 	height: 50vh;
 	overflow: scroll;
 }
-
-main > pre#memory {
-	text-align: left;
-	margin-top: 1em;
-
-	text-align: left;
-}

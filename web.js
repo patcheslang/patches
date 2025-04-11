@@ -14,6 +14,8 @@ export default class PatchesWeb {
 
 		app.use("/scripts", express.static("scripts"));
 
+		app.use("/lib", express.static("lib"));
+
 		app.use(
 			"/scripts/antlr4.web.mjs",
 			express.static("node_modules/antlr4/dist/antlr4.web.mjs"),
