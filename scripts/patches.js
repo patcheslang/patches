@@ -28,11 +28,26 @@ export default class Patches {
 				this.program.compile();
 				this.program.run();
 
-				this.printMemory(this.program.printMemory());
+				this.printMemory(this.program.getMemory());
 			});
 	}
 
-	printMemory(str) {
+	printMemory(memory) {
+		const mem = new BigUint64Array(memory.buffer);
+
+		let str = "<tr><td>Index</td><td>Value</td><td>Hex</td></tr>\n";
+
+		for (let i = 0; i < mem.length; i++) {
+			str += "\n<tr>\n";
+
+			str += `<td>${i}</td>`;
+			str += `<td>${mem[i].toString()}</td>`;
+			str += `<td>${mem[i].toString(16).padStart(16, "0")}</td>`;
+
+			str += "\n</tr>\n";
+		}
+
+
 		document.querySelector("table#memory").innerHTML = str;
 	}
 }

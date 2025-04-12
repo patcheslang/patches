@@ -17,6 +17,6 @@ export default class PatchesParser {
 
 		antlr4.tree.ParseTreeWalker.DEFAULT.walk(listener, tree);
 
-		return listener.getOpcodes();
+		return listener.getIntReps();
 	}
 }

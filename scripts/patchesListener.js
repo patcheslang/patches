@@ -4,11 +4,15 @@ export default class PatchesListener extends PatchesParserListener {
 	constructor() {
 		super();
 
-		this.opcodes = [];
+		this.intReps = {
+			tableDefs: [],
+			precomps: [],
+			instructions: [],
+		}
 	}
 
-	getOpcodes() {
-		return this.opcodes;
+	getIntReps() {
+		return this.intReps;
 	}
 
 	enterParse(ctx) {
@@ -65,7 +69,7 @@ export default class PatchesListener extends PatchesParserListener {
 	}
 
 	doNumber(number) {
-		this.opcodes.push(number.getText());
+		this.intReps.precomps.push(["__BigDecimal", Number(number.getText())]);
 	}
 
 	doMessage(message) {
