@@ -5,10 +5,10 @@ export default class PatchesListener extends PatchesParserListener {
 		super();
 
 		this.intReps = {
-			tableDefs: [],
-			precomps: [],
+			tableDefs: new Map(),
+			prepops: [],
 			instructions: [],
-		}
+		};
 	}
 
 	getIntReps() {
@@ -69,7 +69,7 @@ export default class PatchesListener extends PatchesParserListener {
 	}
 
 	doNumber(number) {
-		this.intReps.precomps.push(["__BigDecimal", Number(number.getText())]);
+		console.log(number.getText());
 	}
 
 	doMessage(message) {

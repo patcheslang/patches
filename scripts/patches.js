@@ -47,7 +47,6 @@ export default class Patches {
 			str += "\n</tr>\n";
 		}
 
-
 		document.querySelector("table#memory").innerHTML = str;
 	}
 }
