@@ -1,6 +1,8 @@
 export default class PatchesTable {
-	constructor(parentTableId = 0n) {
-		this.parentTableId = parentTableId;
+	constructor(parentTable = "") {
+		this.parentTable = parentTable;
+
+		this.address = 0n;
 
 		this.fields = [];
 	}
@@ -15,9 +17,11 @@ export default class PatchesTable {
 			protected: false,
 			private: false,
 
-			type: 0n,
+			type: "__UINT64",
 			defaultFormula: 0n,
 			checkFormula: 0n,
+
+			TypeAddress: 0n,
 		};
 
 		this.fields.push({ ...defaults, ...options });
@@ -42,7 +46,7 @@ export default class PatchesTable {
 
 			tableDef.push(constraints);
 
-			tableDef.push(field.type);
+			tableDef.push(field.typeAddress);
 
 			tableDef.push(field.defaultFormula);
 
