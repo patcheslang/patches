@@ -7,17 +7,48 @@ export default class PatchesProgram {
 		this.prepops = [];
 		this.instructions = [];
 
+		this.UINT64_ADDRESS = 8n;
+
 		this.doBootstrap();
 	}
 
 	doBootstrap() {
 		const __UINT64 = new Table(0n);
-		__UINT64.addField("SET", { formulaic: true, defaultFormula: 0n });
-		__UINT64.addField("GET", { formulaic: true, defaultFormula: 1n });
-		__UINT64.addField("HASH", { formulaic: true, defaultFormula: 2n });
-		__UINT64.addField("SORT", { formulaic: true, defaultFormula: 3n });
-		__UINT64.addField("CHECK", { formulaic: true, defaultFormula: 4n });
-		__UINT64.addField("ADDRESS", { formulaic: true, defaultFormula: 5n });
+		__UINT64.addField({
+			formulaic: true,
+			type: this.UINT64_ADDRESS,
+			defaultFormula: 0n, // SET
+		});
+
+		__UINT64.addField({
+			formulaic: true,
+			type: this.UINT64_ADDRESS,
+			defaultFormula: 1n, // GET
+		});
+
+		__UINT64.addField({
+			formulaic: true,
+			type: this.UINT64_ADDRESS,
+			defaultFormula: 2n, // SORT
+		}); // HASH
+
+		__UINT64.addField({
+			formulaic: true,
+			type: this.UINT64_ADDRESS,
+			defaultFormula: 3n, // HASH
+		}); // SORT
+
+		__UINT64.addField({
+			formulaic: true,
+			type: this.UINT64_ADDRESS,
+			defaultFormula: 4n, // ADDRESS
+		});
+
+		__UINT64.addField({
+			formulaic: true,
+			type: this.UINT64_ADDRESS,
+			defaultFormula: 5n, // CHECK
+		});
 
 		this.tableDefs.set("__UINT64", __UINT64);
 	}
@@ -34,11 +65,12 @@ export default class PatchesProgram {
 	compile() {
 		console.log("Compiling patches program...");
 		const mem = new DataView(this.memory.buffer);
-		let m = 8; // reserve first 8 addresses for pointers
 
+		let m = Number(this.UINT64_ADDRESS); // make room for instructions pointers
 		for (const [name, table] of this.tableDefs.entries()) {
+			table.address = m;
 			for (const tableMem of table.getTableMem()) {
-				mem.setBigUint64(m * 8, tableMem, true);
+				mem.setBigUint64(m * 8, tableMem, true); // 8 bytes = 64 bits
 				m++;
 			}
 		}

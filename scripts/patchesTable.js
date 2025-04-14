@@ -15,7 +15,7 @@ export default class PatchesTable {
 			protected: false,
 			private: false,
 
-			type: 8n,
+			type: 0n,
 			defaultFormula: 0n,
 			checkFormula: 0n,
 		};
@@ -30,7 +30,15 @@ export default class PatchesTable {
 		tableDef.push(BigInt(this.fields.length));
 
 		for (const field of this.fields) {
-			const constraints = 128n;
+			let constraints = 0n;
+
+			if (field.formulaic) constraints |= 0b00000001n;
+			if (field.primary) constraints |= 0b00000010n;
+			if (field.autoIncrement) constraints |= 0b00000100n;
+			if (field.nullable) constraints |= 0b00001000n;
+			if (field.unique) constraints |= 0b00010000n;
+			if (field.protected) constraints |= 0b00100000n;
+			if (field.private) constraints |= 0b01000000n;
 
 			tableDef.push(constraints);
 
