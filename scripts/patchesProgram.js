@@ -63,56 +63,137 @@ export default class PatchesProgram {
 		__UINT64.address = address;
 
 		__UINT64.addField({
+			name: "SET",
 			formulaic: true,
 			type: "__UINT64",
-			defaultFormula: 0n, // SET
+			defaultFormula: 0n,
 		});
 
 		__UINT64.addField({
+			name: "GET",
 			formulaic: true,
 			type: "__UINT64",
-			defaultFormula: 1n, // GET
+			defaultFormula: 1n,
 		});
 
 		__UINT64.addField({
+			name: "SORT",
 			formulaic: true,
 			type: "__UINT64",
-			defaultFormula: 2n, // SORT
+			defaultFormula: 2n,
 		}); // HASH
 
 		__UINT64.addField({
+			name: "HASH",
 			formulaic: true,
 			type: "__UINT64",
-			defaultFormula: 3n, // HASH
+			defaultFormula: 3n,
 		}); // SORT
 
 		__UINT64.addField({
+			name: "ADDRESS",
 			formulaic: true,
 			type: "__UINT64",
-			defaultFormula: 4n, // ADDRESS
+			defaultFormula: 4n,
 		});
 
 		__UINT64.addField({
+			name: "CHECK",
 			formulaic: true,
 			type: "__UINT64",
-			defaultFormula: 5n, // CHECK
+			defaultFormula: 5n,
 		});
 
 		this.tableDefs.set("__UINT64", __UINT64);
 
-		const __STRING = new Table("__UINT64");
+		const __THREADS = new Table("__UINT64");
 
-		__STRING.addField({
+		__THREADS.addField({
+			name: "index",
 			primary: true,
 			autoIncrement: true,
 			nullable: false,
 			type: "__UINT64",
 		});
 
-		__STRING.addField({
+		__THREADS.addField({
+			name: "active",
+			nullable: false,
 			type: "__UINT64",
 		});
 
-		this.tableDefs.set("__STRING", __STRING);
+		__THREADS.addField({
+			name: "parent",
+			nullable: false,
+			type: "__UINT64",
+		});
+
+		__THREADS.addField({
+			name: "instruction",
+			nullable: false,
+			type: "__UINT64",
+		});
+
+		this.tableDefs.set("__THREADS", __THREADS);
+
+		const __INSTANCES = new Table("__UINT64");
+
+		__INSTANCES.addField({
+			name: "index",
+			primary: true,
+			autoIncrement: true,
+			nullable: false,
+			type: "__UINT64",
+		});
+
+		__INSTANCES.addField({
+			name: "active",
+			nullable: false,
+			type: "__UINT64",
+		});
+
+		__INSTANCES.addField({
+			name: "type",
+			nullable: false,
+			type: "__UINT64",
+		});
+
+		__INSTANCES.addField({
+			name: "thread",
+			nullable: false,
+			type: "__UINT64",
+		});
+
+		__INSTANCES.addField({
+			name: "pointer",
+			nullable: false,
+			type: "__UINT64",
+		});
+
+		this.tableDefs.set("__INSTANCES", __INSTANCES);
+
+		const __INSTRUCTIONS = new Table("__UINT64");
+
+		__INSTRUCTIONS.addField({
+			name: "index",
+			primary: true,
+			autoIncrement: true,
+			nullable: false,
+			type: "__UINT64",
+		});
+
+		__INSTRUCTIONS.addField({
+			name: "funcref",
+			nullable: false,
+			type: "__UINT64",
+		});
+
+		__INSTRUCTIONS.addField({
+			name: "batch",
+			nullable: false,
+			type: "__UINT64",
+		});
+
+		this.tableDefs.set("__INSTRUCTIONS", __INSTRUCTIONS);
 	}
 }
