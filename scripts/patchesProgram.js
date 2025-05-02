@@ -2,12 +2,22 @@ import Table from "./patchesTable.js";
 
 export default class PatchesProgram {
 	constructor() {
-		this.memory = new WebAssembly.Memory({ initial: 1, maximum: 1 });
+		this.memory = new WebAssembly.Memory({ initial: 1, maximum: 1, element: "i64" });
+		this.formulas = new WebAssembly.Table({ element: "anyfunc", initial: 1, index: "i64" });
 		this.tableDefs = new Map();
 		this.prepops = [];
 		this.instructions = [];
 
 		this.doBootstrap(8n); // UINT64_ADDRESS offset
+
+		const sum = (a, b) => a + b;
+
+		const addWasmFunc = new WebAssembly.Function(
+			{ parameters: ["i64", "i64"], results: ["i64"] },
+			sum
+		);
+
+		this.formulas.set(0, addWasmFunc);
 	}
 
 	add(intReps) {
