@@ -132,3 +132,4 @@ dist
 # patches 
 syntax/
 wasm/patches.wasm
+package-lock.json
